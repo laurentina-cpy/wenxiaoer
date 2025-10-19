@@ -1,0 +1,15 @@
+
+.container.data-v-07e72d3c {
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+.header.data-v-07e72d3c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.content.data-v-07e72d3c {
+  text-align: center;
+  font-size: 24px;
+}

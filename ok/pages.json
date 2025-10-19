@@ -1,0 +1,80 @@
+{
+  "pages": [
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/order/order",
+      "style": {
+        "navigationBarTitleText": "订单"
+      }
+    },
+    {
+      "path": "pages/personal-center/personal-center",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    // 其他页面（如地址管理、隐私政策等）不需要放在 tabBar 中
+    {
+      "path": "pages/address-manager-page/address-manager-page",
+      "style": {
+        "navigationBarTitleText": "地址管理"
+      }
+    },
+    {
+      "path": "pages/privacy/privacy",
+      "style": {
+        "navigationBarTitleText": "隐私政策"
+      }
+    },
+    {
+      "path": "pages/agreement/agreement",
+      "style": {
+        "navigationBarTitleText": "用户协议"
+      }
+    },
+    {
+      "path": "pages/consumer/consumer",
+      "style": {
+        "navigationBarTitleText": "消费者权益"
+      }
+    }
+  ],
+ "tabBar": {
+   "color": "#888",
+   "selectedColor": "#6a1b9a",
+   "backgroundColor": "#f8f8f8",
+   "borderStyle": "black",
+   "list": [
+     {
+       "pagePath": "pages/home/home",
+       "text": "首页",
+       "iconPath": "static/logo.png",
+       "selectedIconPath": "static/logo.png"
+     },
+     {
+       "pagePath": "pages/order/order",
+       "text": "订单",
+       "iconPath": "static/logo.png",
+       "selectedIconPath": "static/logo.png"
+     },
+     {
+       "pagePath": "pages/personal-center/personal-center",
+       "text": "我的",
+       "iconPath": "static/logo.png",
+       "selectedIconPath": "static/logo.png"
+     }
+   ]
+ },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "uniIdRouter": {}
+}
