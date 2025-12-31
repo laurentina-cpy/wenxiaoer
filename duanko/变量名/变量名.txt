@@ -1,0 +1,66 @@
+一、地址页（address.vue）
+	变量名	类型	用途说明
+	isSelectMode	ref(boolean)	判断是否为「地址选择模式」（从结算页 / 下单页跳转时为 true）
+	selectedIndex	ref(number)	选中的地址索引（-1 表示未选中）
+	formVisible	ref(boolean)	地址表单的显示 / 隐藏状态
+	isEdit	ref(boolean)	判断是「新增地址」还是「编辑地址」
+	form	ref(Object)	地址表单数据（姓名、手机号、省市区、详细地址、是否默认）
+	editIndex	ref(number)	编辑地址的索引（-1 表示新增）
+	addressList	ref(Array)	地址列表（从本地存储addressList读取，持久化存储）
+二、购物车页（cart.vue）
+	变量名	类型	用途说明
+	cartStore	响应式对象	购物车状态管理（引入自 pinia 的 cart store）
+	userStore	响应式对象	用户状态管理（引入自 pinia 的 user store）
+三、结算页（checkout.vue）
+	变量名	类型	用途说明
+	selectedAddress	ref(Object)	选中的收货地址（null 表示未选择）
+	cartList	ref(Array)	购物车商品列表（从本地存储cartList读取）
+	totalPrice	computed(string)	商品总价（自动计算，保留 2 位小数）
+四、评价页（evaluate.vue）
+	变量名	类型	用途说明
+	orderId	ref(string)	订单 ID（从页面参数接收）
+	goodsName	ref(string)	商品名称（模拟 / 从订单关联）
+	goodsPrice	ref(string)	商品价格（模拟 / 从订单关联）
+	goodsImage	ref(string)	商品图片（模拟 / 从订单关联）
+	score	ref(number)	配送体验评分（0-5 分，默认 0）
+	evaluateText	ref(string)	评价内容（选填）
+五、评价列表页（evaluate-list.vue）
+	变量名	类型	用途说明
+	activeTab	ref(string)	底部导航激活态（shop/order/mine）
+	evaluateList	ref(Array)	评价列表（模拟数据，含店铺名、时间、商品信息、评分、评价内容）
+六、首页（home.vue）
+	变量名	类型	用途说明
+	selectedAddress	ref(Object)	选中的收货地址（null 表示未选择）
+	activeCategory	ref(number)	激活的商品分类索引（0 - 全部，1 - 快餐，2 - 饮品，3 - 小吃，4 - 水果）
+	showCartList	ref(boolean)	底部购物车列表的展开 / 收起状态
+	goodsList	ref(Array)	商品列表（含 ID、分类、图片、名称、描述、价格、购物车数量）
+	filteredGoods	computed(Array)	按分类过滤后的商品列表
+	cartGoods	computed(Array)	购物车中有数量的商品列表
+	cartCount	computed(number)	购物车商品总数量
+	cartTotal	computed(string)	购物车商品总价（保留 2 位小数）
+七、登录页（login.vue）
+	变量名	类型	用途说明
+	userStore	响应式对象	用户状态管理（引入自 pinia 的 user store）
+	loginLock	ref(boolean)	登录按钮防重复点击锁（true 表示禁用）
+八、我的页（mine.vue）
+	变量名	类型	用途说明
+	userInfo	ref(Object)	模拟用户信息（是否登录、昵称、头像、手机号）
+九、订单页（order.vue）
+	变量名	类型	用途说明
+	filterList	ref(Array)	订单筛选类型（全部、待付款、待收货、已完成、已取消）
+	currentFilter	ref(number)	当前选中的筛选索引（0 - 全部，1 - 待付款，2 - 待收货，3 - 已完成，4 - 已取消）
+	orderList	ref(Array)	订单列表（从本地存储orderList读取，无则用模拟数据）
+	statusColor	ref(Object)	订单状态对应的颜色（0 - 待付款 - 橙色，1 - 待收货 - 蓝色，2 - 已完成 - 绿色，3 - 已取消 - 灰色）
+	filteredOrderList	computed(Array)	按筛选条件过滤后的订单列表
+通用说明
+	ref 类型：响应式变量，用于存储页面状态、表单数据、列表数据等，修改会触发视图更新；
+	computed 类型：计算属性，基于其他响应式变量动态计算（如过滤商品、计算总价），缓存结果，依赖变化时自动更新；
+	本地存储字段：
+	addressList：收货地址列表；
+	cartList/cart：购物车数据；
+	orderList：订单列表；
+状态码约定（订单页）：
+	0：待付款；
+	1：待收货；
+	2：已完成；
+	3：已取消。

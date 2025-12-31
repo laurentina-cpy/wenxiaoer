@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>城小二后端API文档</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #FF7D00;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .api-section {
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: #FF7D00;
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .endpoint {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px;
+        }
+        .endpoint:last-child {
+            border-bottom: none;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .get { background: #28a745; }
+        .post { background: #007bff; }
+        .put { background: #ffc107; }
+        .delete { background: #dc3545; }
+        
+        .path {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .description {
+            margin: 10px 0;
+            color: #666;
+        }
+        .params {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .param-item {
+            margin: 5px 0;
+        }
+        .param-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .example {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .test-btn {
+            background: #FF7D00;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .test-btn:hover {
+            background: #e66a00;
+        }
+        .result {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏪 城小二后端API文档</h1>
+        
+        <div class="api-section">
+            <div class="section-header">用户相关接口</div>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/user/wxLogin</span>
+                <div class="description">微信登录</div>
+                <div class="params">
+                    <strong>参数：</strong>
+                    <div class="param-item">
+                        <span class="param-name">code:</span> 微信授权码
+                    </div>
+                    <div class="param-item">
+                        <span class="param-name">nickname:</span> 用户昵称（可选）
+                    </div>
+                    <div class="param-item">
+                        <span class="param-name">avatarUrl:</span> 头像URL（可选）
+                    </div>
+                    <div class="param-item">
+                        <span class="param-name">phone:</span> 手机号（可选）
+                    </div>
+                </div>
+                <button class="test-btn" onclick="testLogin()">测试接口</button>
+                <div id="loginResult" class="result" style="display:none;"></div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/user/info</span>
+                <div class="description">获取用户信息（需要token）</div>
+                <div class="params">
+                    <strong>请求头：</strong>
+                    <div class="param-item">
+                        <span class="param-name">Authorization:</span> Bearer &lt;token&gt;
+                    </div>
+                </div>
+                <button class="test-btn" onclick="testUserInfo()">测试接口</button>
+                <div id="userInfoResult" class="result" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <div class="section-header">商品相关接口</div>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/goods/list</span>
+                <div class="description">获取商品列表</div>
+                <div class="params">
+                    <strong>查询参数：</strong>
+                    <div class="param-item">
+                        <span class="param-name">category_id:</span> 分类ID（可选）
+                    </div>
+                    <div class="param-item">
+                        <span class="param-name">shelf_status:</span> 上架状态（默认1）
+                    </div>
+                </div>
+                <button class="test-btn" onclick="testGoodsList()">测试接口</button>
+                <div id="goodsListResult" class="result" style="display:none;"></div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="path">/api/goods/categories</span>
+                <div class="description">获取商品分类列表</div>
+                <button class="test-btn" onclick="testCategories()">测试接口</button>
+                <div id="categoriesResult" class="result" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <div class="section-header">订单相关接口</div>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/order/create</span>
+                <div class="description">创建订单（需要token）</div>
+                <div class="params">
+                    <strong>请求体：</strong>
+                    <div class="param-item">
+                        <span class="param-name">address_id:</span> 地址ID
+                    </div>
+                    <div class="param-item">
+                        <span class="param-name">goods_list:</span> 商品列表
+                    </div>
+                    <div class="param-item">
+                        <span class="param-name">total_amount:</span> 总金额
+                    </div>
+                </div>
+                <button class="test-btn" onclick="testCreateOrder()">测试接口</button>
+                <div id="createOrderResult" class="result" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <div class="section-header">管理员接口</div>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="path">/api/admin/login</span>
+                <div class="description">管理员登录</div>
+                <button class="test-btn" onclick="testAdminLogin()">测试接口</button>
+                <div id="adminLoginResult" class="result" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let authToken = null;
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('loginResult');
+            try {
+                const response = await fetch('/api/user/wxLogin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        code: 'test_code_123',
+                        nickname: '测试用户',
+                        avatarUrl: 'https://example.com/avatar.jpg',
+                        phone: '13800138000'
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+                
+                if (data.data && data.data.token) {
+                    authToken = data.data.token;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '请求失败: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        async function testUserInfo() {
+            const resultDiv = document.getElementById('userInfoResult');
+            if (!authToken) {
+                resultDiv.innerHTML = '请先执行登录获取token';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/user/info', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.innerHTML = '请求失败: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        async function testGoodsList() {
+            const resultDiv = document.getElementById('goodsListResult');
+            try {
+                const response = await fetch('/api/goods/list');
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.innerHTML = '请求失败: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        async function testCreateOrder() {
+            const resultDiv = document.getElementById('createOrderResult');
+            if (!authToken) {
+                resultDiv.innerHTML = '请先执行登录获取token';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/order/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        address_id: 'test_address_1',
+                        items: [
+                            { goods_id: 1, quantity: 2, price: 15.9 },
+                            { goods_id: 2, quantity: 1, price: 8.9 }
+                        ],
+                        total_amount: 40.7
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.innerHTML = '请求失败: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        async function testAdminLogin() {
+            const resultDiv = document.getElementById('adminLoginResult');
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'admin123'
+                    })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.innerHTML = '请求失败: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        async function testCategories() {
+            const resultDiv = document.getElementById('categoriesResult');
+            try {
+                const response = await fetch('/api/goods/categories');
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.innerHTML = '请求失败: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
