@@ -1,25 +1,35 @@
 {
-  "name": "chengxiaoer-backend",
+  "name": "chengxiaoer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "城小二小程序项目",
+  "main": "main.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "sync-db": "node scripts/sync-database.js",
-    "init-admin": "node scripts/init-admin.js",
-    "create-test-data": "node scripts/create-test-data.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "uni serve",
+    "build": "uni build",
+    "dev:mp-weixin": "uni build --watch --platform mp-weixin",
+    "build:mp-weixin": "uni build --platform mp-weixin"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.15.3",
-    "sequelize": "^6.37.7"
-  }
+    "@dcloudio/uni-app": "^3.0.0",
+    "@dcloudio/uni-components": "^3.0.0",
+    "@dcloudio/uni-h5": "^3.0.0",
+    "@dcloudio/uni-mp-weixin": "^3.0.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "^3.0.0",
+    "@dcloudio/uni-cli-shared": "^3.0.0",
+    "@dcloudio/vite-plugin-uni": "^3.0.0",
+    "vite": "^4.4.9",
+    "typescript": "^5.1.6",
+    "@vue/tsconfig": "^0.4.0"
+  },
+  "keywords": [
+    "uni-app",
+    "微信小程序",
+    "城小二"
+  ],
+  "author": "",
+  "license": "MIT"
 }
